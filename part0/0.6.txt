@@ -1,0 +1,16 @@
+title New note with single page app
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+
+note over browser:
+Request contains the new note as JSON-data.
+This data contains both, the content of the note (content) 
+and the timestamp (date).
+end note
+
+note over browser:
+The Content-Type header of the request tells the server, 
+that the included data is represented in the JSON format.
+end note
+
+server-->browser: statuscode 201 (created)

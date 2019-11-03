@@ -1,1 +1,1 @@
-# FullStackOpen2019
+# FullStackOpen2019 by Eileen Juergens
