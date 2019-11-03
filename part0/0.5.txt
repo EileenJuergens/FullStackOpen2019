@@ -1,0 +1,24 @@
+title Single page app
+
+browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/spa
+
+note over server:
+All of the logic is on the server.
+end note
+
+note over browser:
+Renders only the HTML, as instructed.
+end note
+
+server-->browser: HTML-code
+
+note over browser:
+Executing JavaScript code.
+end note
+
+browser->server: Fetch request JSON-data & HTML elements
+server-->browser: JSON-data & HTML elements
+
+note over browser:
+Displaying the notes to the page using the DOM-API.
+end note
