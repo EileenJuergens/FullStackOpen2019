@@ -6,21 +6,31 @@ const Button = ({ onClick, text }) => (
   <button onClick={onClick}>{text}</button>
 )
 
-const Statistic = ({text, value}) => (<p>{text} {value}</p>)
+const Statistic = ({text, value}) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
+
 
 const Statistics = ({good, neutral, bad}) => {
   if (!good && !neutral && !bad){
     return <p>No feedback given yet.</p>
   }
   return (
-    <div>
-      <Statistic text="good" value={good}/>
-      <Statistic text="neutral" value={neutral}/>
-      <Statistic text="bad" value={bad}/>
-      <Statistic text="all" value={good+neutral+bad}/>
-      <Statistic text="average" value={(good*1+neutral*0+bad*-1)/(good+neutral+bad)}/>
-      <Statistic text="positive percent" value={`${(100*good)/(good+neutral+bad)} %`}/>
-    </div>
+    <table>
+      <tbody>
+        <Statistic text="good" value={good}/>
+        <Statistic text="neutral" value={neutral}/>
+        <Statistic text="bad" value={bad}/>
+        <Statistic text="all" value={good+neutral+bad}/>
+        <Statistic text="average" value={(good*1+neutral*0+bad*-1)/(good+neutral+bad)}/>
+        <Statistic text="positive" value={`${(100*good)/(good+neutral+bad)} %`}/>
+      </tbody>
+    </table>
   )
 }
 
@@ -47,16 +57,9 @@ const App = () => {
       <Button onClick={handleBadClick} text='bad'/>
       <h2>The Statistics</h2> 
       <Statistics feedbackGiven={false} good={good} neutral={neutral} bad={bad}/>
-      {/* <Statistic text="good" value={good}/>
-      <Statistic text="neutral" value={neutral}/>
-      <Statistic text="bad" value={bad}/>
-      <Statistic text="all" value={good+neutral+bad}/>
-      <Statistic text="average" value={(good*1+neutral*0+bad*-1)/(good+neutral+bad)}/>
-      <Statistic text="positive percent" value={(100*good)/(good+neutral+bad)}/> */}
     </div>
   )
 }
-
 
 
 ReactDOM.render(<App />, document.getElementById('root'))
