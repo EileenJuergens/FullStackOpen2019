@@ -15,7 +15,6 @@ const Statistic = ({text, value}) => {
   )
 }
 
-
 const Statistics = ({good, neutral, bad}) => {
   if (!good && !neutral && !bad){
     return <p>No feedback given yet.</p>
