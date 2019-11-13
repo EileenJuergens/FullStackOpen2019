@@ -5,13 +5,15 @@ import Total from './OrganismComponents/Total'
 const Content = ({parts}) => {
 
   const lines = () => parts.map(part => <Part key={part.id} part={part}/>)
-  
+
+  const total = parts.reduce( (acc, cur) => {
+    return acc + cur.exercises
+  },0)
 
   return (
     <>
       <div>{lines()}</div>
-      <h4>Total of {parts[0].exercises + parts[1].exercises + parts[2].exercises + parts[3].exercises} exercises</h4>
-      <Total/>
+      <Total total={total}/>
     </>
   )
 }
