@@ -3,11 +3,11 @@ import Header from './MoleculeComponents/Header'
 import Content from './MoleculeComponents/Content'
 
 
-const Course = ({course}) => {
+const Course = ({courses}) => {
   return (
     <div>
-      <Header name={course.name}/>
-      <Content parts={course.parts}/>
+      <Header name={courses.name}/>
+      <Content parts={courses.parts}/>
     </div>
   )
 }
