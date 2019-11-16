@@ -1,17 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Person from './Person';
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567' }
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ searchTerm, setSearchTerm ] = useState('')
+  const [ searchResults, setSearchResults ] = useState([])
 
-  const rows = () => persons.map(person =>
-    <Person key={person.name} person={person}/>  
-  )
+  
+  useEffect(() => {
+    if (searchTerm.length) {
+      const results = persons.filter(person =>
+        person.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        setSearchResults(results)
+    } else {
+      setSearchResults([])
+    }
+  }, [searchTerm, persons])
 
+  const rows = () => {
+    if (searchResults.length) {
+      return searchResults.map(person => 
+        <Person key={person.name} person={person}/>)  
+    } else {
+      return persons.map(person => 
+        <Person key={person.name} person={person}/>)  
+    }
+  }
+      
   const addPerson = (event) => {
     event.preventDefault();
     const foundName = persons.find(person => {
@@ -31,6 +53,10 @@ const App = () => {
       setNewNumber('')
     }
   }
+      
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value)
+  }
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -43,6 +69,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>Filter shown with <input placeholder='Search...' value={searchTerm} onChange={handleSearchChange}/></div>
+      <h2>Add a new person</h2>
       <form onSubmit={addPerson}>
         <div>name: <input value={newName} onChange={handleNameChange}/></div>
         <div>number: <input value={newNumber} onChange={handleNumberChange}/></div>
