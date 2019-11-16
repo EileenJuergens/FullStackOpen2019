@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Person from './Person';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ]) 
+  const [ persons, setPersons] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ searchTerm, setSearchTerm ] = useState('')
   const [ searchResults, setSearchResults ] = useState([])
 
-  
   useEffect(() => {
     if (searchTerm.length) {
       const results = persons.filter(person =>
@@ -23,16 +19,6 @@ const App = () => {
       setSearchResults([])
     }
   }, [searchTerm, persons])
-
-  const rows = () => {
-    if (searchResults.length) {
-      return searchResults.map(person => 
-        <Person key={person.name} person={person}/>)  
-    } else {
-      return persons.map(person => 
-        <Person key={person.name} person={person}/>)  
-    }
-  }
       
   const addPerson = (event) => {
     event.preventDefault();
@@ -53,7 +39,7 @@ const App = () => {
       setNewNumber('')
     }
   }
-      
+  
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value)
   }
@@ -69,15 +55,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>Filter shown with <input placeholder='Search...' value={searchTerm} onChange={handleSearchChange}/></div>
+      <Filter searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
       <h2>Add a new person</h2>
-      <form onSubmit={addPerson}>
-        <div>name: <input value={newName} onChange={handleNameChange}/></div>
-        <div>number: <input value={newNumber} onChange={handleNumberChange}/></div>
-        <div><button type="submit">add</button></div>
-      </form>
+      <PersonForm addPerson={addPerson} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
-      <div>{rows()}</div>
+      <Persons searchResults={searchResults} persons={persons}/>
     </div>
   )
 }
