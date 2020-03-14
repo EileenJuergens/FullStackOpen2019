@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import Filter from './components/Filter';
 import Countries from './components/Countries';
 
 
@@ -20,7 +18,7 @@ const App = () => {
     if (searchTerm.length) {
       const results = countries.filter(country =>
         country.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        setSearchResults(results)
+      setSearchResults(results)
     } else {
       setSearchResults([])
     }
@@ -29,12 +27,16 @@ const App = () => {
   const handleChangeSearch = (event) => {
     setSearchTerm(event.target.value)
   }
-  
-  
-  return ( 
+
+
+  return (
     <div>
-      <Filter searchTerm={searchTerm} handleChangeSearch={handleChangeSearch}/>
-      <Countries searchResults={searchResults} countries={countries}/>
+      <div>Find countries: 
+        <input placeholder='Search...' 
+          value={searchTerm} 
+          onChange={handleChangeSearch}/>
+      </div>
+      <Countries searchResults={searchResults} handleChangeSearch={handleChangeSearch} />
     </div>
   );
 }
